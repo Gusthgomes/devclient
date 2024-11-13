@@ -23,6 +23,9 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
+    "@radix-ui/react-collapsible": "^1.1.1",
+    "electron-router-dom": "^1.0.5",
+    "react-router-dom": "^6.28.0",
     "vite-plugin-static-copy": "^2.1.0"
   },
   "devDependencies": {
