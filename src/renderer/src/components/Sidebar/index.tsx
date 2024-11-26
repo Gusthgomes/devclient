@@ -21,6 +21,13 @@ export function Sidebar() {
       </Collapsible.Trigger>
 
       <div
+        className={clsx('region-drag h-14 z-0 mt-10', {
+          block: isMacOS,
+          hidden: !isMacOS
+        })}
+      ></div>
+
+      <div
         className={clsx(
           'flex flex-col flex-1 h-full gap-8 w-[220px] transition-opacity group-data-[state=open]:opacity-100 group-data-[state=closed]:opacity-0 duration-200',
           {

@@ -13,7 +13,7 @@ export function Header({ isSidebarOpen }: headerProps) {
     <div
       id="header"
       className={clsx(
-        'flex items-center gap-4 leading-tight relative border-b border-slate-600 transition-all duration-200 py-[1.125rem] px-6',
+        'flex items-center gap-4 leading-tight relative border-b border-slate-600 transition-all duration-200 py-[1.125rem] px-6 region-drag',
         {
           'pl-24': !isSidebarOpen && isMacOS,
           'w-screen': !isSidebarOpen,
