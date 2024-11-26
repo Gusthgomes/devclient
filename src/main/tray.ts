@@ -14,7 +14,10 @@ export function createTray(window: BrowserWindow) {
     {
       label: 'Cadastrar cliente',
       click: () => {
-        console.log('cadastrando um novo cliente')
+        window.webContents.send('new-customer')
+
+        if (window.isMinimized()) window.restore()
+        window.focus()
       }
     },
     { label: 'Abrir', click: () => window.show() },
