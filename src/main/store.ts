@@ -2,6 +2,7 @@ import { app, ipcMain } from 'electron'
 import PouchDb from 'pouchdb'
 import path from 'node:path'
 import fs from 'node:fs'
+import { randomUUID } from 'node:crypto'
 
 import { Customer, NewCustomer } from '../shared/types/ipc'
 
@@ -28,3 +29,24 @@ if (!fs.existsSync(dbDir)) {
 
 // Inicializar o banco de dados
 const db = new PouchDb<Customer>(dbPath)
+
+// função para adicionar um novo cliente
+async function addCustomer(doc: NewCustomer): Promise<PouchDB.Core.Response | void> {
+  const id = randomUUID()
+
+  const data: Customer = {
+    ...doc,
+    _id: id
+  }
+
+  return db
+    .put(data)
+    .then((response) => response)
+    .catch((error) => console.error('Erro ao cadastrar um novo cliente', error))
+}
+
+// Eventos IPC
+ipcMain.handle('add-customer', async (event, doc: Customer) => {
+  const result = await addCustomer(doc)
+  return result
+})
