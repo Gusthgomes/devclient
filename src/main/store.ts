@@ -45,8 +45,25 @@ async function addCustomer(doc: NewCustomer): Promise<PouchDB.Core.Response | vo
     .catch((error) => console.error('Erro ao cadastrar um novo cliente', error))
 }
 
-// Eventos IPC
+// Evento IPC para adicionar um novo cliente
 ipcMain.handle('add-customer', async (event, doc: Customer) => {
   const result = await addCustomer(doc)
   return result
+})
+
+// função para buscar todos os clientes
+async function getAllCustomers(): Promise<Customer[] | void> {
+  try {
+    const result = await db.allDocs({ include_docs: true })
+    return result.rows.map((row) => row.doc as Customer)
+  } catch (error) {
+    console.error('Erro ao buscar todos os clientes', error)
+    return []
+  }
+}
+
+// Evento IPC para buscar todos os
+
+ipcMain.handle('get-all-customers', async () => {
+  return await getAllCustomers()
 })
