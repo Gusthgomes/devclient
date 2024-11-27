@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export function Home() {
   async function handleAdd() {
-    const response = await window.api.fetchUsers()
+    const response = await window.api.getAllCustomers()
     console.log(response)
   }
   return (
