@@ -5,6 +5,8 @@ import { createFileRoute, createURLRoute } from 'electron-router-dom'
 
 import { createTray } from './tray'
 
+import './ipc'
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
