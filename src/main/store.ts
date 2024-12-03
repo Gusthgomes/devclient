@@ -83,3 +83,24 @@ ipcMain.handle('get-customer-by-id', async (event, docId) => {
   const result = await getCustomerById(docId)
   return result
 })
+
+// Deletar um cliente
+async function deleteCustomer(docId: string): Promise<PouchDB.Core.Response | null> {
+  try {
+    const doc = await db.get(docId)
+
+    const result = await db.remove(doc._id, doc._rev)
+
+    return result
+  } catch (error) {
+    console.error('Erro ao deletar cliente', error)
+    return null
+  }
+}
+
+ipcMain.handle(
+  'delete-customer',
+  async (event, docId: string): Promise<PouchDB.Core.Response | null> => {
+    return await deleteCustomer(docId)
+  }
+)

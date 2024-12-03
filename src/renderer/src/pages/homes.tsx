@@ -11,6 +11,12 @@ export function Home() {
     const response = await window.api.getCustomerById(docId)
     console.log(response)
   }
+
+  async function handleDelete() {
+    const docId = 'c6e66f02-4c58-4f29-b123-075f07174fbc'
+    const response = await window.api.deleteCustomer(docId)
+    console.log(response)
+  }
   return (
     <div>
       <h1>Página principal</h1>
@@ -25,6 +31,10 @@ export function Home() {
       <br></br>
 
       <button onClick={handleCustomerById}>Buscar cliente</button>
+
+      <br></br>
+
+      <button onClick={handleDelete}>Delete cliente</button>
     </div>
   )
 }
