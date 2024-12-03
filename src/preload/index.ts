@@ -28,6 +28,10 @@ const api = {
 
   getAllCustomers: (): Promise<Customer[]> => {
     return ipcRenderer.invoke('get-all-customers')
+  },
+
+  getCustomerById: (docId: string): Promise<Customer> => {
+    return ipcRenderer.invoke('get-customer-by-id', docId)
   }
 }
 
