@@ -1,12 +1,49 @@
-import { stat } from 'fs'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { FormEvent, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+interface DataMutation {
+  name: string
+  email: string
+  phone: string
+  address: string
+  role: string
+}
 
 export function Create() {
+  const queryClient = useQueryClient()
+
+  const navigate = useNavigate()
+
   const nameRef = useRef<HTMLInputElement | null>(null)
   const emailRef = useRef<HTMLInputElement | null>(null)
   const phoneRef = useRef<HTMLInputElement | null>(null)
   const addressRef = useRef<HTMLInputElement | null>(null)
   const roleRef = useRef<HTMLInputElement | null>(null)
+
+  const { isPending, mutateAsync: createCustomer } = useMutation({
+    mutationFn: async (data: DataMutation) => {
+      await window.api
+        .addCustomer({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          role: data.role,
+          status: true
+        })
+        .then((response) => {
+          console.log('Cliente cadastrado com sucesso!')
+          navigate('/')
+        })
+        .catch((error) => {
+          console.log('Erro ao cadastrar cliente!', error)
+        })
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['customers'] })
+    }
+  })
 
   async function handleAddCustomer(e: FormEvent) {
     e.preventDefault()
@@ -21,10 +58,7 @@ export function Create() {
       return
     }
 
-    console.log({ name, email, phone, address, role })
-
-    // const response = await window.api.addCustomer(doc)
-    // console.log(response)
+    await createCustomer({ name, email, phone, address, role })
   }
   return (
     <div className="flex-1 flex flex-col py-12 px-10 gap-8 overflow-y-auto">
@@ -85,7 +119,8 @@ export function Create() {
 
           <button
             type="submit"
-            className="bg-blue-500 rounded-md flex items-center justify-center w-full h-9 my-3"
+            className="bg-blue-500 rounded-md flex items-center justify-center w-full h-9 my-3 disabled:bg-gray-500"
+            disabled={isPending}
           >
             Cadastrar
           </button>
