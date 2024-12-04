@@ -36,7 +36,9 @@ const api = {
 
   deleteCustomer: (docId: string): Promise<PouchDB.Core.Response | null> => {
     return ipcRenderer.invoke('delete-customer', docId)
-  }
+  },
+
+  getVersionApp: () => ipcRenderer.invoke('get-version')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
