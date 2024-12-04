@@ -1,22 +1,96 @@
+import { stat } from 'fs'
+import { FormEvent, useRef } from 'react'
+
 export function Create() {
-  async function handleAddCustomer() {
-    const doc = {
-      name: 'Gustavo Gomes',
-      email: 'Gusth@mail.com',
-      phone: '999131556',
-      address: 'Rua das flores, 123',
-      role: 'developer',
-      status: true
+  const nameRef = useRef<HTMLInputElement | null>(null)
+  const emailRef = useRef<HTMLInputElement | null>(null)
+  const phoneRef = useRef<HTMLInputElement | null>(null)
+  const addressRef = useRef<HTMLInputElement | null>(null)
+  const roleRef = useRef<HTMLInputElement | null>(null)
+
+  async function handleAddCustomer(e: FormEvent) {
+    e.preventDefault()
+
+    const name = nameRef.current?.value
+    const email = emailRef.current?.value
+    const phone = phoneRef.current?.value
+    const address = addressRef.current?.value
+    const role = roleRef.current?.value
+
+    if (!name || !email || !phone || !address || !role) {
+      return
     }
 
-    const response = await window.api.addCustomer(doc)
-    console.log(response)
+    console.log({ name, email, phone, address, role })
+
+    // const response = await window.api.addCustomer(doc)
+    // console.log(response)
   }
   return (
-    <div>
-      <h1>Página create</h1>
+    <div className="flex-1 flex flex-col py-12 px-10 gap-8 overflow-y-auto">
+      <section className="flex flex-1 flex-col items-center ">
+        <h1 className="text-white text-xl lg:text-3xl font-semibold">Cadastrar novo cliente</h1>
 
-      <button onClick={handleAddCustomer}>Cadastrar cliente</button>
+        <form className="w-full max-w-96 mt-4" onSubmit={handleAddCustomer}>
+          <div className="mb-2">
+            <label className="text-lg py-2">Nome: </label>
+            <input
+              className="w-full h-9 rounded-md text-black px-2"
+              placeholder="Gustavo Gomes"
+              type="text"
+              ref={nameRef}
+            />
+          </div>
+
+          <div className="mb-2">
+            <label className="text-lg py-2">Endereço: </label>
+            <input
+              className="w-full h-9 rounded-md text-black px-2"
+              placeholder="Avenida das flores, 123"
+              type="text"
+              ref={addressRef}
+            />
+          </div>
+
+          <div className="mb-2">
+            <label className="text-lg py-2">E-mail: </label>
+            <input
+              className="w-full h-9 rounded-md text-black px-2"
+              placeholder="gustavoG@mail.com"
+              type="email"
+              ref={emailRef}
+            />
+          </div>
+
+          <div className="mb-2">
+            <label className="text-lg py-2">Cargo: </label>
+            <input
+              className="w-full h-9 rounded-md text-black px-2"
+              placeholder="Desenvolvedor"
+              type="text"
+              ref={roleRef}
+            />
+          </div>
+
+          <div className="mb-2">
+            <label className="text-lg py-2">Telefone: </label>
+            <input
+              className="w-full h-9 rounded-md text-black px-2 mb-4"
+              placeholder="(99) 99999-9999"
+              type="text"
+              ref={phoneRef}
+              maxLength={11}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="bg-blue-500 rounded-md flex items-center justify-center w-full h-9 my-3"
+          >
+            Cadastrar
+          </button>
+        </form>
+      </section>
     </div>
   )
 }
