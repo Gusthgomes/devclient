@@ -5,6 +5,8 @@ import { createFileRoute, createURLRoute } from 'electron-router-dom'
 
 import { createTray } from './tray'
 
+import { createShortCuts } from './shortcuts'
+
 import './ipc'
 import './store'
 
@@ -31,6 +33,7 @@ function createWindow(): void {
 
   // Create tray
   createTray(mainWindow)
+  createShortCuts(mainWindow)
 
   // Set the dock icon (macOS)
   if (process.platform === 'darwin') {
