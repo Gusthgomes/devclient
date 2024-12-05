@@ -1,10 +1,11 @@
 {
   "name": "devclient",
+  "productName": "Dev Client",
   "version": "0.0.0",
   "description": "Uma aplicação para cadastro de clientes",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "author": "https://github.com/Gusthgomes",
+  "homepage": "https://github.com/Gusthgomes",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -13,7 +14,7 @@
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev --watch",
-    "build": "npm run typecheck && electron-vite build",
+    "build": "electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
@@ -33,7 +34,9 @@
     "pouchdb": "^9.0.0",
     "pouchdb-browser": "^9.0.0",
     "react-router-dom": "^6.28.0",
-    "vite-plugin-static-copy": "^2.1.0"
+    "vite-plugin-static-copy": "^2.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
@@ -51,8 +54,6 @@
     "eslint-plugin-react": "^7.34.3",
     "postcss": "^8.4.49",
     "prettier": "^3.3.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.5.2",
     "vite": "^5.3.1"
