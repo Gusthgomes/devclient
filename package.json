@@ -1,7 +1,7 @@
 {
   "name": "devclient",
   "productName": "Dev Client",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Uma aplicação para cadastro de clientes",
   "main": "./out/main/index.js",
   "author": "https://github.com/Gusthgomes",
